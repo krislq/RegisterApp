@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Fri May 24 16:53:27 CST 2013
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=RegisterApp.jar
+manifest.mergeall=true
+manifest.mainclass=com.krislq.register.Register
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=
+includes=
