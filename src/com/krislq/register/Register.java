@@ -40,7 +40,7 @@ public class Register extends JFrame implements ActionListener,MouseListener{
      * 
      */
     private static final long serialVersionUID = -990464036839342319L;
-    public static final String APP_NAME = "eoe同城会自我介绍系统";
+    public static final String APP_NAME = "eoe同城会自我介绍系统-Kris";
     private static final String BUTTON_CMD_REGISTER = "REGISTER";
     private static final String BUTTON_CMD_SKIP = "SKIP";
 
@@ -89,7 +89,9 @@ public class Register extends JFrame implements ActionListener,MouseListener{
         initMainFrame();
         mMembers = getMembers();
         refreshTable();
-        refreshDisplay(mMembers.get(0));
+        if(mMembers !=null && mMembers.size() >0 ) {
+            refreshDisplay(mMembers.get(0));
+        }
     }
     private void initMainFrame() {
 
@@ -134,10 +136,10 @@ public class Register extends JFrame implements ActionListener,MouseListener{
         mMessageLabel.setForeground(Color.BLACK);
         mMessageLabel.setVisible(true);
         mMessageLabel.setBounds(20, 90, 100, 100);
-        mMessageLabel.setText("Kris(kris id)");
+        mMessageLabel.setText("eoe(eoe id)");
         rightPane.add(mMessageLabel,BorderLayout.CENTER);
 
-        mOkButton = new JButton("OK,换一个");
+        mOkButton = new JButton("介绍完了,换一个");
         mOkButton.setForeground(Color.BLACK);
         mOkButton.setFont(new Font("宋体", Font.BOLD, 15));
         mOkButton.setBounds(20, 10, 150, 30);
@@ -147,7 +149,7 @@ public class Register extends JFrame implements ActionListener,MouseListener{
         mOkButton.addActionListener(this);
 
         
-        mSkipButton= new JButton("跳过");
+        mSkipButton= new JButton("还没来,TT");
         mSkipButton.setForeground(Color.BLACK);
         mSkipButton.setFont(new Font("宋体", Font.BOLD, 15));
         mSkipButton.setBounds(10, 10, 150, 30);
@@ -212,6 +214,8 @@ public class Register extends JFrame implements ActionListener,MouseListener{
             if(column == (mColumnNames.length-1)) {
                 if(valueStr.equals("false")) {
                     label.setForeground(Color.RED);
+                }else {
+                    label.setForeground(Color.BLUE);
                 }
             }
             return label;
@@ -220,6 +224,10 @@ public class Register extends JFrame implements ActionListener,MouseListener{
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(mMembers == null || mMembers.size() == 0) {
+            showMessage("No member to display!");
+            return;
+        }
         String comm = e.getActionCommand();
         if(BUTTON_CMD_REGISTER.endsWith(comm)) {
             mDisplayMember.setRegister(true);
@@ -287,6 +295,7 @@ public class Register extends JFrame implements ActionListener,MouseListener{
     private void refreshDisplay(Member member){
         mDisplayMember = member;
         mMessageLabel.setText(member.getName()+"("+member.getEoeId()+")");
+        mJTable.setRowSelectionInterval(mLastIndex, mLastIndex);
     }
     @Override
     public void mouseClicked(MouseEvent e) {
